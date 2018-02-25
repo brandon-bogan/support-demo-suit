@@ -11,6 +11,8 @@ type SearchResultTitleProps = {
    * Defaults to the value in the configuration.
    */
   baseUri: string;
+  title: string | null;
+  uri: string | null;
 };
 
 type SearchResultTitleDefaultProps = {
@@ -41,16 +43,16 @@ export default class SearchResultTitle extends React.Component<SearchResultTitle
     if (this.props.doc.signal) {
       new Signals(this.props.baseUri).addSignal(this.props.doc);
     }
-    const uri = this.props.doc.getFirstValue(FieldNames.URI);
+    const uri = this.props.uri ? this.props.uri : this.props.doc.getFirstValue(FieldNames.URI);
     window.open(uri, '_blank');
   }
 
   render() {
-    let title = this.props.doc.getFirstValue(FieldNames.TITLE);
+    let title = this.props.title ? this.props.title : this.props.doc.getFirstValue(FieldNames.TITLE);
     if (!title) {
       title = '<span className="none">This document has no title</span>';
     }
-    const uri = this.props.doc.getFirstValue(FieldNames.URI);
+    const uri = this.props.uri ? this.props.uri : this.props.doc.getFirstValue(FieldNames.URI);
     let titleComp;
 
     if (uri) {

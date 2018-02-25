@@ -16,6 +16,7 @@ import TagCloudFacetContents from './TagCloudFacetContents';
 import TimeSeriesFacetContents from './TimeSeriesFacetContents';
 import SentimentFacetContents from './SentimentFacetContents';
 import MapFacetContents from './MapFacetContents';
+import FacetSearchBar from './FacetSearchBar';
 
 type FacetProps = {
   /** The facet to display. */
@@ -181,7 +182,9 @@ export default class Facet extends React.Component<FacetDefaultProps, FacetProps
           break;
         case 'list':
         default:
-          facetContents = <MoreListFacetContents buckets={this.props.facet.buckets} addFacetFilter={this.addFacetFilter} />;
+          facetContents = <div>
+            <FacetSearchBar name={this.props.facet.field} label={this.props.facet.label} addFacetFilter={this.addFacetFilter} maxValues={5}/>
+            <MoreListFacetContents buckets={this.props.facet.buckets} addFacetFilter={this.addFacetFilter} /></div>;
           break;
       }
     } else {
